@@ -1,0 +1,20 @@
+/**
+data "terraform_remote_state" "abdul" {
+    backend = "s3"
+    config = {
+        bucket  = "joseph-terraform"
+        key     = "dev/terraform.tfstate"
+        region  = "us-east-1"
+    }
+}
+
+resource "aws_subnet" "main" {
+  vpc_id     = data.terraform_remote_state.abdul.outputs.mashi_vpc_id
+  cidr_block = "10.1.0.192/26"
+
+  tags = {
+    Name = "exported subnet"
+  }
+}
+
+**/
